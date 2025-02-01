@@ -52,8 +52,9 @@ export const Button = styled.button`
 `
 
 export const ListItem = styled.div`
+    background: ${ props => props.isFinished ? '#ccffcc' : 'none' };
     box-shadow: 1px 4px 10px 0px #00000033;
-    border: 1px solid #00000011;
+    border: none;
     border-radius: 5px;
     height: 60px;
     display: flex;
@@ -61,9 +62,11 @@ export const ListItem = styled.div`
     align-items: center;
     padding: 0 20px;
     margin-bottom: 20px;
+    text-decoration: dashed;
 
     li {
         list-style: none;
+        text-decoration: ${ props => props.isFinished ? 'line-through' : 'none' };
     }
 
     div {

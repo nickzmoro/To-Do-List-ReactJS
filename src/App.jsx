@@ -6,19 +6,36 @@ import { Container, ToDoList, Input, Button, ListItem, Title } from './styles.js
 import { FaTrash, FaCheck } from "react-icons/fa";
 
 function App() {
-  const [list, setList] = useState([{ id: uuid(), task: "Escreva sua lição" }]);
+  const [list, setList] = useState([{ id: uuid(), task: "Escreva sua lição", finished: true }]);
   const [inputTask, setInputTask] = useState("");
 
   function inputMudou(event) {
     setInputTask(event.target.value)
-    console.log(inputTask)
   }
 
   function cliqueiNoBotao() {
     /* Spread Operator 
-      -> Coloca os itens anteriores + o novo item
+      -> Mantém os itens anteriores + o novo item
     */
-    setList([...list, { id: uuid(), task: inputTask }])
+    setList([...list, { id: uuid(), task: inputTask, finished: false }])
+  }
+
+  function completeTask(id) {
+
+    const newList = list.map( item => (
+      item.id === id ? { ...item, finished: !item.finished } : item
+    ))
+
+    setList(newList)
+
+  }
+
+  function deleteTask(id) {
+
+    const deleteList = list.filter( item => item.id !== id)
+
+    setList(deleteList)
+
   }
 
   return (
@@ -32,11 +49,11 @@ function App() {
           <ul>
             {
               list.map(item => (
-                <ListItem>
-                  <li key={item.id}>{item.task}</li>
+                <ListItem isFinished={item.finished} key={item.id}>
+                  <li>{item.task}</li>
                   <div>
-                    <FaCheck className='btn-check'/>
-                    <FaTrash className='btn-delete'/>
+                    <FaCheck className='btn-check' onClick={() => completeTask(item.id)}/>
+                    <FaTrash className='btn-delete' onClick={() => deleteTask(item.id)}/>
                   </div>
                 </ListItem>
               ))
