@@ -20,6 +20,13 @@ export const ToDoList = styled.div`
     ul {
         padding: 0;
         margin-top: 30px;
+
+        h3 {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
     }
 `
 
@@ -49,6 +56,10 @@ export const Button = styled.button`
     border: none;
     color: #fff;
     cursor: pointer;
+
+    &:hover {
+        filter: grayscale(0.3);
+    }
 `
 
 export const ListItem = styled.div`

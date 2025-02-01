@@ -3,26 +3,32 @@ import { v4 as uuid } from 'uuid';
 
 import { Container, ToDoList, Input, Button, ListItem, Title } from './styles.js'
 
-import { FaTrash, FaCheck } from "react-icons/fa";
+import { FaTrash, FaCheck, FaRegFileAlt } from "react-icons/fa";
 
 function App() {
-  const [list, setList] = useState([{ id: uuid(), task: "Escreva sua lição", finished: true }]);
+  const [list, setList] = useState([]);
   const [inputTask, setInputTask] = useState("");
 
   function inputMudou(event) {
+
     setInputTask(event.target.value)
+    
   }
 
   function cliqueiNoBotao() {
+
     /* Spread Operator 
       -> Mantém os itens anteriores + o novo item
     */
-    setList([...list, { id: uuid(), task: inputTask, finished: false }])
+    if (inputTask) {
+      setList([...list, { id: uuid(), task: inputTask, finished: false }])
+    }
+
   }
 
   function completeTask(id) {
 
-    const newList = list.map( item => (
+    const newList = list.map(item => (
       item.id === id ? { ...item, finished: !item.finished } : item
     ))
 
@@ -32,7 +38,7 @@ function App() {
 
   function deleteTask(id) {
 
-    const deleteList = list.filter( item => item.id !== id)
+    const deleteList = list.filter(item => item.id !== id)
 
     setList(deleteList)
 
@@ -45,21 +51,25 @@ function App() {
         <Input onChange={inputMudou} type="text" placeholder='O que tenho para fazer...' />
         <Button onClick={cliqueiNoBotao}>Adicionar</Button>
 
-        {
-          <ul>
-            {
-              list.map(item => (
+
+        <ul>
+          {
+            list.length > 0 ? (
+              list.map((item) => (
                 <ListItem isFinished={item.finished} key={item.id}>
                   <li>{item.task}</li>
                   <div>
-                    <FaCheck className='btn-check' onClick={() => completeTask(item.id)}/>
-                    <FaTrash className='btn-delete' onClick={() => deleteTask(item.id)}/>
+                    <FaCheck className='btn-check' onClick={() => completeTask(item.id)} />
+                    <FaTrash className='btn-delete' onClick={() => deleteTask(item.id)} />
                   </div>
                 </ListItem>
               ))
-            }
-          </ul>
-        }
+            ) : (
+              <h3>Adicione uma tarefa à lista. <FaRegFileAlt /></h3>
+            )
+          }
+        </ul>
+
       </ToDoList>
     </Container>
   )
