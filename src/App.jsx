@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
-import { Container, ToDoList, Input, Button, ListItem } from './styles.js'
+import { Container, ToDoList, Input, Button, ListItem, Title } from './styles.js'
 
 import { FaTrash, FaCheck } from "react-icons/fa";
 
@@ -23,6 +23,7 @@ function App() {
 
   return (
     <Container>
+      <Title>To-Do-List com <span>React</span></Title>
       <ToDoList>
         <Input onChange={inputMudou} type="text" placeholder='O que tenho para fazer...' />
         <Button onClick={cliqueiNoBotao}>Adicionar</Button>

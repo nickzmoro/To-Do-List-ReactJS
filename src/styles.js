@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div`
     background: rgba(10, 10, 10);
     width: 100vw;
-    min-height: 100vh;
+    min-height: calc(100vh - 30px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px 0;
 `
 
 export const ToDoList = styled.div`
@@ -29,10 +30,16 @@ export const Input = styled.input`
     margin-right: 10px;
     padding: 0 10px;
     width: 77.5%;
+    font-size: 0.95rem;
+
+    &:focus {
+        outline: none;
+        border: 2px solid #009999;
+    }
 `
 
 export const Button = styled.button`
-    background: #8052EC;
+    background: #009999;
     border-radius: 5px;
     font-weight: 900;
     font-size: 1rem;
@@ -83,5 +90,17 @@ export const ListItem = styled.div`
     .btn-check {
         color: #fff;
         background-color: #008000;
+    }
+`
+
+export const Title = styled.h1`
+    color: #fff;
+    font-size: 2.5rem;
+    text-align: center;
+    line-height: 0;
+    margin-bottom: 50px;
+
+    span {
+        color: #009999;
     }
 `
