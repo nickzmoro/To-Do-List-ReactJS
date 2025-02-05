@@ -12,4 +12,21 @@ export const GlobalStyles = createGlobalStyle`
     * {
         font-family: "Roboto", sans-serif;
     }
+
+    @media screen and (max-width: 600px) {
+        .sc-jqVXSH {
+            font-size: 2rem;
+        }
+
+        .sc-gyycJP {
+            display: flex;
+            flex-direction: column;
+            width: 20rem;
+            gap: 10px;
+
+            input {
+                width: 92%;
+            }
+        }
+    }
 `
