@@ -6,34 +6,48 @@ import { Container, ToDoList, Input, Button, ListItem, Title } from './styles.js
 import { FaTrash, FaCheck, FaRegFileAlt } from "react-icons/fa";
 
 export function App() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(() => {
+    // Carrega tarefas do Local Storage apenas uma vez ao iniciar
+    const savedTasks = localStorage.getItem("list");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
   const [inputTask, setInputTask] = useState("");
 
+  // Atualiza o valor do input
   function inputValue(event) {
-    setInputTask(event.target.value)
+    setInputTask(event.target.value);
   }
 
+  // Salva manualmente as tarefas no Local Storage
+  function saveTheTask(tarefas) {
+    localStorage.setItem("list", JSON.stringify(tarefas));
+  }
+
+  // Adiciona uma nova tarefa e salva no Local Storage
   function addTask() {
-    /* Spread Operator 
-      -> Mantém os itens anteriores + o novo item
-    */
-    if (inputTask) {
-      setList([...list, { id: uuid(), task: inputTask, finished: false }])
+    if (inputTask.trim()) {
+      const newList = [...list, { id: uuid(), task: inputTask, finished: false }];
+      setList(newList);
+      saveTheTask(newList);
+      setInputTask("");
     }
   }
 
+  // Alterna o status de concluído de uma tarefa e salva no Local Storage
   function completeTask(id) {
-    const newList = list.map(item => (
+    const newList = list.map((item) =>
       item.id === id ? { ...item, finished: !item.finished } : item
-    ))
-
-    setList(newList)
+    );
+    setList(newList);
+    saveTheTask(newList);
   }
 
+  // Remove uma tarefa e salva a lista atualizada
   function deleteTask(id) {
-    const deleteList = list.filter(item => item.id !== id)
-
-    setList(deleteList)
+    const newList = list.filter((item) => item.id !== id);
+    setList(newList);
+    saveTheTask(newList);
   }
 
   return (
